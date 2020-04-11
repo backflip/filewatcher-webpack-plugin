@@ -6,7 +6,7 @@ function filewatcherPlugin(options) {
 
 filewatcherPlugin.prototype.apply = function(compiler) {
   const options = this.options;
-  compiler.plugin('done', function(compilation) {
+  compiler.hooks.afterPlugins.tap('filewatcherPlugin', function(context, entry) {
     var watcher = chokidar.watch(options.watchFileRegex, {
       persistent: options.persistance || true,
       ignored: options.ignored || false,
